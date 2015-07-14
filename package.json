@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paulcbetts/electron-compile-cache"
+    "url": "https://github.com/paulcbetts/compile-cache"
   },
   "keywords": [
     "electron"
@@ -18,9 +18,9 @@
   "author": "Paul Betts <paul@paulbetts.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/paulcbetts/electron-compile-cache/issues"
+    "url": "https://github.com/paulcbetts/compile-cache/issues"
   },
-  "homepage": "https://github.com/paulcbetts/electron-compile-cache",
+  "homepage": "https://github.com/paulcbetts/compile-cache",
   "dependencies": {
     "lodash": "^3.8.0",
     "mkdirp": "^0.5.0"
