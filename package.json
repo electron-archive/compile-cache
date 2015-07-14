@@ -23,16 +23,6 @@
   "homepage": "https://github.com/paulcbetts/electron-compile-cache",
   "dependencies": {
     "lodash": "^3.8.0",
-    "mkdirp": "^0.5.0",
-    "ncp": "^2.0.0",
-    "promise": "^7.0.1",
-    "rimraf": "^2.3.3",
-  },
-  "devDependencies": {
-    "babel": "^5.6.14",
-    "chai": "^2.3.0",
-    "chai-as-promised": "^5.0.0",
-    "chai-spies": "^0.6.0",
-    "mocha": "^2.2.4"
+    "mkdirp": "^0.5.0"
   }
 }
