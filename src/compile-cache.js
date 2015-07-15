@@ -36,8 +36,8 @@ export default class CompileCache {
     this.ensureInitialized();
     let lowerPath = fullPath.toLowerCase();
     
-    // If we're in node_modules, we're gonna punt
-    if (fullPath.match(/[\\\/]node_modules[\\\/]/i)) return false;
+    // If we're in node_modules or in Electron core code, we're gonna punt
+    if (fullPath.match(/[\\\/]node_modules[\\\/]/i) || fullPath.match(/[\\\/]atom\.asar/)) return false;
 
     // NB: require() normally does this for us, but in our protocol hook we
     // need to do this ourselves
