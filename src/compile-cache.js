@@ -111,7 +111,11 @@ export default class CompileCache {
 
     if (!this.jsCacheDir) {
       this.jsCacheDir = path.join(this.cacheDir, this.createDigestForCompilerInformation());
-      mkdirp.sync(this.jsCacheDir);
+
+      // NB: Even if all of the directories exist, if you mkdirp in an ASAR archive it throws
+      if (!this.jsCacheDir.match(/[\\\/]app\.asar/)) {
+      	mkdirp.sync(this.jsCacheDir);
+      }
     }
 
     return path.join(this.jsCacheDir, `${digest}`);
