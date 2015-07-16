@@ -1,6 +1,6 @@
 {
   "name": "electron-compile-cache",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Base class for compilers in electron-compile, use this to implement your own compiler",
   "main": "lib/compile-cache.js",
   "scripts": {
