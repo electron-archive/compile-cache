@@ -32,7 +32,7 @@ export default class CompileCache {
     throw new Error("Implement this in a derived class");
   }
 
-  shouldCompileFile(fullPath) {
+  shouldCompileFile(fullPath, sourceCode=null) {
     this.ensureInitialized();
     let lowerPath = fullPath.toLowerCase();
     
@@ -147,7 +147,7 @@ export default class CompileCache {
 
     sourceCode = sourceCode || fs.readFileSync(filePath, 'utf8');
 
-    if (!this.shouldCompileFile(fullPath)) {
+    if (!this.shouldCompileFile(fullPath, sourceCode)) {
       if (returnOnly) return sourceCode;
       return module._compile(sourceCode, filePath);
     }
