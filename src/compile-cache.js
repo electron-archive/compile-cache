@@ -39,6 +39,12 @@ export default class CompileCache {
     // If we're in node_modules or in Electron core code, we're gonna punt
     if (fullPath.match(/[\\\/]node_modules[\\\/]/i) || fullPath.match(/[\\\/]atom\.asar/)) return false;
 
+    // If the file already has a source map, that's a good indication that we
+    // shouldn't compile it
+    if (sourceCode && sourceCode.lastIndexOf('//# sourceMap') > sourceCode.lastIndexOf('\n')) {
+      return false;
+    }
+
     // NB: require() normally does this for us, but in our protocol hook we
     // need to do this ourselves
     return _.some(
