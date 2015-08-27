@@ -34,7 +34,7 @@ export default class CompileCache {
 
   static isMinified(source) {
     let length = source.length;
-    if (length > 2048) length = 2048;
+    if (length > 1024) length = 1024;
     
     let newlineCount = 0;
     
@@ -49,7 +49,7 @@ export default class CompileCache {
     }
     
     let avgLineLength = length / newlineCount;
-    return (avgLineLength > 80);
+    return (avgLineLength > 40);
   }
 
   shouldCompileFile(fullPath, sourceCode=null) {
