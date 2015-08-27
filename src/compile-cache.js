@@ -65,6 +65,11 @@ export default class CompileCache {
       return false;
     }
 
+    // If the file is minified, we probably shouldn't compile it either
+    if (sourceCode && CompileCache.isMinified(sourceCode)) {
+      return false;
+    }
+
     // NB: require() normally does this for us, but in our protocol hook we
     // need to do this ourselves
     return _.some(
