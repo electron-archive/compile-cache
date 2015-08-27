@@ -35,19 +35,19 @@ export default class CompileCache {
   static isMinified(source) {
     let length = source.length;
     if (length > 2048) length = 2048;
-
+    
     let newlineCount = 0;
-
+    
     // Roll through the characters and determine the average line length
     for(let i=0; i < source.length; i++) {
       if (source[i] === '\n') newlineCount++;
     }
-
+    
     // No Newlines? Any file other than a super small one is minified
     if (newlineCount === 0) {
       return (length > 40);
     }
-
+    
     let avgLineLength = length / newlineCount;
     return (avgLineLength > 80);
   }
@@ -64,7 +64,7 @@ export default class CompileCache {
     if (sourceCode && sourceCode.lastIndexOf('//# sourceMap') > sourceCode.lastIndexOf('\n')) {
       return false;
     }
-
+    
     // If the file is minified, we probably shouldn't compile it either
     if (sourceCode && CompileCache.isMinified(sourceCode)) {
       return false;
@@ -145,7 +145,7 @@ export default class CompileCache {
 
       // NB: Even if all of the directories exist, if you mkdirp in an ASAR archive it throws
       if (!this.jsCacheDir.match(/[\\\/]app\.asar/)) {
-      	mkdirp.sync(this.jsCacheDir);
+        mkdirp.sync(this.jsCacheDir);
       }
     }
 
