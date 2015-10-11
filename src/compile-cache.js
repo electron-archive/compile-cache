@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import mkdirp from 'mkdirp';
 import _ from 'lodash';
+import zlib from 'zlib';
 
 export default class CompileCache {
   constructor() {
@@ -30,6 +31,15 @@ export default class CompileCache {
 
   initializeCompiler() {
     throw new Error("Implement this in a derived class");
+  }
+  
+  // Shout out to mafintosh/gunzip-maybe
+  static isGzipped(data) {
+    if (data.length < 10) return false; // gzip header is 10 bytes
+    if (data[0] !== 0x1f && data[1] !== 0x8b) return false; // gzip magic bytes
+    if (data[2] !== 8) return false; // is deflating
+
+    return true;
   }
 
   static isMinified(source) {
@@ -154,7 +164,12 @@ export default class CompileCache {
 
   getCachedJavaScript(cachePath) {
     try {
-      let ret = fs.readFileSync(cachePath, 'utf8');
+      let buf = fs.readFileSync(cachePath);
+      if (CompileCache.isGzipped(buf)) {
+        buf = zlib.gunzipSync(buf);
+      }
+      
+      let ret = buf.toString('utf8');
       this.stats.hits++;
 
       return ret;
@@ -164,7 +179,7 @@ export default class CompileCache {
   }
 
   saveCachedJavaScript(cachePath, js) {
-    fs.writeFileSync(cachePath, js);
+    fs.writeFileSync(cachePath, zlib.gzipSync(new Buffer(js)));
   }
 
   // Function that obeys the contract of an entry in the require.extensions map.
