@@ -55,7 +55,7 @@ export default class CompileCache {
 
     // No Newlines? Any file other than a super small one is minified
     if (newlineCount === 0) {
-      return (length > 40);
+      return (length > 80);
     }
 
     let avgLineLength = length / newlineCount;
