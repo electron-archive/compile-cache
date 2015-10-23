@@ -59,7 +59,7 @@ export default class CompileCache {
     }
     
     let avgLineLength = length / newlineCount;
-    return (avgLineLength > 40);
+    return (avgLineLength > 80);
   }
 
   shouldCompileFile(fullPath, sourceCode=null) {
