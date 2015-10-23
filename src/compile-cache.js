@@ -35,19 +35,19 @@ export default class CompileCache {
   static isMinified(source) {
     let length = source.length;
     if (length > 1024) length = 1024;
-    
+
     let newlineCount = 0;
-    
+
     // Roll through the characters and determine the average line length
     for(let i=0; i < source.length; i++) {
       if (source[i] === '\n') newlineCount++;
     }
-    
+
     // No Newlines? Any file other than a super small one is minified
     if (newlineCount === 0) {
       return (length > 40);
     }
-    
+
     let avgLineLength = length / newlineCount;
     return (avgLineLength > 40);
   }
@@ -55,7 +55,7 @@ export default class CompileCache {
   shouldCompileFile(fullPath, sourceCode=null) {
     this.ensureInitialized();
     let lowerPath = fullPath.toLowerCase();
-    
+
     // If we're in node_modules or in Electron core code, we're gonna punt
     if (fullPath.match(/[\\\/]node_modules[\\\/]/i) || fullPath.match(/[\\\/]atom\.asar/)) return false;
 
@@ -64,7 +64,7 @@ export default class CompileCache {
     if (sourceCode && sourceCode.lastIndexOf('//# sourceMap') > sourceCode.lastIndexOf('\n')) {
       return false;
     }
-    
+
     // If the file is minified, we probably shouldn't compile it either
     if (sourceCode && CompileCache.isMinified(sourceCode)) {
       return false;
@@ -195,8 +195,8 @@ export default class CompileCache {
     if (!this.disableCache) {
       cachePath = this.getCachePath(sourceCode);
       js = this.disableCache ? null : this.getCachedJavaScript(cachePath);
-    } 
-    
+    }
+
     if (!js) {
       js = this.compile(sourceCode, filePath, cachePath);
       this.stats.misses++;
@@ -216,7 +216,7 @@ export default class CompileCache {
     for (let i=0; i < this.extensions.length; i++) {
       Object.defineProperty(require.extensions, `.${this.extensions[i]}`, {
         enumerable: true,
-        writable: false,
+        writable: true,
         value: (module, filePath) => this.loadFile(module, filePath)
       });
     }
