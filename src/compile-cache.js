@@ -32,7 +32,7 @@ export default class CompileCache {
   initializeCompiler() {
     throw new Error("Implement this in a derived class");
   }
-  
+
   // Shout out to mafintosh/gunzip-maybe
   static isGzipped(data) {
     if (data.length < 10) return false; // gzip header is 10 bytes
@@ -168,7 +168,7 @@ export default class CompileCache {
       if (CompileCache.isGzipped(buf)) {
         buf = zlib.gunzipSync(buf);
       }
-      
+
       let ret = buf.toString('utf8');
       this.stats.hits++;
 
@@ -212,7 +212,7 @@ export default class CompileCache {
       js = this.disableCache ? null : this.getCachedJavaScript(cachePath);
     }
 
-    if (!js) {
+    if (!js && js != '') {
       js = this.compile(sourceCode, filePath, cachePath);
       this.stats.misses++;
 
