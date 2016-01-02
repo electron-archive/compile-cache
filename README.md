@@ -1,8 +1,3 @@
-## electron-compile-cache
+#### DEPRECATED
 
-electron-compile-cache is the base class for compilers in
-[electron-compile](https://github.com/paulcbetts/electron-compile);
-
-## Where's the Documentation?!
-
-Nowhere, um coming soon
+This is a package that was the base class for compiler implementations for [electron-compile](https://github.com/electronjs/compile-cache) 1.x, but it is no longer used
